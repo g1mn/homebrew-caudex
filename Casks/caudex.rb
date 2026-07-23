@@ -1,27 +1,23 @@
 cask "caudex" do
-  version "0.1.49"
-  
-  on_arm do
-    sha256 "42ead55a7b3db615c41dd90b4f6ecfae9b7aa1df1abe52d74b97cee110fc96e4"
-    url "https://pub-02c02c1ba3544333ba81a9ac9ca269ef.r2.dev/aarch64-apple-darwin/dmg/Caudex_#{version}_aarch64.dmg"
-  end
-  
-  on_intel do
-    sha256 "9eb52ee46c7ab5ea4ca0982415da99fded1b7d7354f75e50847bdae6cb44eb66"
-    url "https://pub-02c02c1ba3544333ba81a9ac9ca269ef.r2.dev/x86_64-apple-darwin/dmg/Caudex_#{version}_x86_64.dmg"
-  end
-  
+  version "0.1.52"
+  sha256 "399ec25cd949605d22890499bb66b772d760e0a33a9ed3320f57996f9f177611"
+
+  url "https://pub-02c02c1ba3544333ba81a9ac9ca269ef.r2.dev/aarch64-apple-darwin/dmg/Caudex_#{version}_aarch64.dmg"
   name "Caudex"
-  desc "Modern GUI for Claude Code sessions - manage sessions, git integration, MCP servers, and more"
-  homepage "https://caudex.sh"
-  
+  desc "GUI for managing Claude Code sessions, git, and MCP servers"
+  homepage "https://caudex.sh/"
+
+  # Upstream ships Apple Silicon only as of 0.1.52 (no x86_64 darwin build).
+  depends_on arch: :arm64
+  depends_on :macos
+
   app "Caudex.app"
-  
+
   uninstall delete: "/Applications/Caudex.app"
-  
+
   zap trash: [
     "~/Library/Application Support/Caudex",
-    "~/Library/Preferences/com.caudex.app.plist",
     "~/Library/Caches/Caudex",
+    "~/Library/Preferences/com.caudex.app.plist",
   ]
 end
